@@ -38,7 +38,6 @@ class View{
 	};
 
 	clickSourceElement(event, targetElement){
-
 		//console.log("------------start clickSourceElement(event)--------------");
 		let target, value;
 		//console.log("clickSourceElement(event) event =", event, ", targetElement =", targetElement);
@@ -63,9 +62,7 @@ class View{
 			//console.log("clickSourceElement(event) else value =", value);
 		};
 		//console.log("clickSourceElement(event) start sign ", this.chain.sign ,"firstDigit ", this.chain.firstDigit, "secondDigit ", this.chain.secondDigit, ", equals ", this.chain.equals );
-
 		this.switcher(value);
-		
 		//console.log("clickSourceElement(event) end sign ", this.chain.sign ,"firstDigit ", this.chain.firstDigit, "secondDigit ", this.chain.secondDigit, ", equals ", this.chain.equals );
 		//console.log("------------end clickSourceElement(event)--------------");
 	};
@@ -391,7 +388,5 @@ class View{
                 this.clickSourceElement(undefined, key);
             };
         };
-        //event.preventDefault();
-		//event.stopPropagation();
 	};
 };

@@ -179,7 +179,6 @@ let mathOperationAddAndSub = (function(){
 		};
 		// console.log("after leveling bigArr1 =",bigArr1);
 		// console.log("after leveling bigArr2 =",bigArr2);
-
 		//Кінець блока коду який відповідає за вирівнювання чисел в масивах
 
 		/*
