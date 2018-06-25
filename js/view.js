@@ -45,7 +45,7 @@ class View{
 			/*
 			* Перевірка if(event.screenX !== 0 && event.screenY !== 0) потрібна для того щоб відрізнити 
 			* подію натиснення enter(в button type="button" та input type="button" запускається подія
-			* "click" з пр-ми screenX, screenY та інш. які дорівнюють нуль) та клік на кнопці. 
+			* "click" з параметрами screenX, screenY та інш. які дорівнюють нуль) та клік на кнопці. 
 			*/
 			
 			if(event.screenX !== 0 && event.screenY !== 0){
@@ -62,12 +62,17 @@ class View{
 			//console.log("clickSourceElement(event) else value =", value);
 		};
 		//console.log("clickSourceElement(event) start sign ", this.chain.sign ,"firstDigit ", this.chain.firstDigit, "secondDigit ", this.chain.secondDigit, ", equals ", this.chain.equals );
+		//console.log("clickSourceElement(event, targetElement) value =", value);
+		//console.log("clickSourceElement(event, targetElement) target =", target);
+
 		this.switcher(value);
 		//console.log("clickSourceElement(event) end sign ", this.chain.sign ,"firstDigit ", this.chain.firstDigit, "secondDigit ", this.chain.secondDigit, ", equals ", this.chain.equals );
 		//console.log("------------end clickSourceElement(event)--------------");
 	};
 
 	switcher(value){
+		//console.log('switcher()')
+		//console.log('switcher()  value', value)
 		if(value !== ""){
 			if(/\d/.test(value)){
 				if(!this.chain.firstDigit){
@@ -85,6 +90,7 @@ class View{
 			}else if(/Clear/.test(value)){
 				this.clear();
 			}else if(/changeSign/.test(value)){
+				//console.log("switcher()  if(/changeSign/.test(value))")
 				this.changeSign();
 			};
 		};
@@ -229,30 +235,37 @@ class View{
 		this.chain.secondDigit = false;
 		this.chain.equals = false;
 		this.digit = "0";
-		this._model.setGetFirstDigit("");
+		this._model.setGetFirstDigit("0");
 		this._model.setSecondDigit("");
 		this._model.setSign("");
 	};
 
 	changeSign(){
+		//console.log('--------------changeSign() start-----------------')
 		let firstDigit = this.chain.firstDigit;
 		let secondDigit = this.chain.secondDigit;
-		let equals = this.chain.equals;
+		let sign = this.chain.sign;
+		//console.log("changeSign()   this.chain", this.chain);
 		if(firstDigit && !secondDigit){
 			//console.log("changeSign() firstDigit && !secondDigit");
-			//if(!equals){
+			if(!sign){
 				this.digit = -this.digit;
 				this._model.setGetFirstDigit(this.digit);
-				//console.log("changeSign() firstDigit && !secondDigit, !equals");
-			//};
-			this._model.changeSignDigit("first");
+				//console.log("changeSign() firstDigit && !secondDigit, !sign");
+				this._model.changeSignDigit("first");
+			};
 		}else if(firstDigit && secondDigit){
 			//console.log("changeSign() firstDigit && secondDigit");
 			this.digit = -this.digit;
 			this._model.setSecondDigit(this.digit);
 			this._model.changeSignDigit();
 		};
-		this.display.innerText = -this.display.innerText;
+		//!sign && (firstDigit || secondDigit)
+		if( (!sign && firstDigit )||(sign && firstDigit && secondDigit)){
+		//if(!sign && (firstDigit || secondDigit)){
+			//console.log("changeSign() if(!sign && (firstDigit || secondDigit))");
+			this.display.innerText = -this.display.innerText;
+		}
 	};
 
 	keyboardInput(event){
